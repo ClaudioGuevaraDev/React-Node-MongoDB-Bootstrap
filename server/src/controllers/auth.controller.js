@@ -1,7 +1,10 @@
+import jwt from 'jsonwebtoken'
+
 import User from "../models/User";
 import Role from '../models/Role'
+import config from '../config';
 
-import { encryptPassword } from '../libs/handlePassword'
+import { encryptPassword, comparePassword } from '../libs/handlePassword'
 
 export const signUp = async (req, res) => {
     const { password, role } = req.body
@@ -27,5 +30,26 @@ export const signUp = async (req, res) => {
 }
 
 export const signIn = async (req, res) => {
+    const { email, password } = req.body
 
+    if (!email || !password) return res.status(400).json({ message: 'Fields are missing.' })
+
+    const userFound = await User.findOne({ email: email })
+    if (!userFound) return res.status(401).json({ message: 'Error to login.' })
+
+    if (!await comparePassword(password, userFound.password)) return res.status(401).json({ message: 'Error to login.' })
+
+    const roleFound = await Role.findOne({ _id: userFound.role })
+
+    const userToken = {
+        id: userFound._id,
+        username: userFound.username,
+        role: roleFound.name
+    }
+
+    const token = jwt.sign(userToken, config.SECRET, {
+        expiresIn: 86400
+    })
+
+    res.json({token})
 }

@@ -1,12 +1,19 @@
 import { BrowserRouter } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast'
 
 import Router from './routes/Router'
 
+import { GlobalProvider } from './context/GlobalState'
+
 const App = () => {
+    
     return (
-        <BrowserRouter>
-            <Router/>
-        </BrowserRouter>
+        <GlobalProvider>
+            <BrowserRouter>
+                <Router/>
+                <Toaster/>
+            </BrowserRouter>
+        </GlobalProvider>
     )
 }
 

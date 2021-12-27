@@ -8,6 +8,7 @@ import ProtectedRoutes from './ProtectedRoutes'
 
 import Login from '../pages/auth/Login/Login'
 import Home from '../pages/home/Home'
+import Register from '../pages/auth/Register/Register'
 
 const Router = () => {
     const [loading, setLoading] = useState(true)
@@ -37,6 +38,7 @@ const Router = () => {
         ) : (
             <Routes>
                 <Route path='/' element={<Login/>}/>
+                <Route path='/register' element={<Register/>}/>
                 <Route element={<ProtectedRoutes/>}>
                     <Route path='/home' element={<Home/>}/>
                 </Route>

@@ -1,7 +1,9 @@
+import './login.css'
+
 import toast from 'react-hot-toast'
 
 import { useState, useEffect, useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 import { GlobalContext } from '../../../context/GlobalState'
 import { LOGGED_USER } from '../../../context/AppConstants'
@@ -59,7 +61,9 @@ const Login = () => {
                                     <input type="password" className="form-control" placeholder="Contraseña" value={user.password} onChange={({target}) => setUser({...user, password: target.value})}/>
                                 </div>
                                 
-                                <p className='text-center fw-bold my-4'>¿No tienes una cuenta registrada?</p>
+                                <Link to='/register' className='link'>
+                                    <p className='text-white text-center fw-bold my-4'>¿No tienes una cuenta registrada?</p>
+                                </Link>
 
                                 <button type="submit" className="btn btn-primary w-100">Ingresar</button>
                             </form>

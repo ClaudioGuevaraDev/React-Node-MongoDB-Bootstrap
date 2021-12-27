@@ -48,8 +48,13 @@ export const signIn = async (req, res) => {
     }
 
     const token = jwt.sign(userToken, config.SECRET, {
-        expiresIn: 86400
+        expiresIn: 60
     })
 
     res.json({token})
+}
+
+export const validateToken = (req, res) => {
+    
+    res.json({ message: 'Authorized.' })
 }

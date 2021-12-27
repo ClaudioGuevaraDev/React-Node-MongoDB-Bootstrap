@@ -7,6 +7,10 @@ const errorHandler = (error, req, res, next) => {
         return res.status(400).json({ message: 'Malformed JOSN.' })
     } else if (name === "ValidationError") {
         return res.status(400).json({ message: 'Fields are missing.' })
+    } else if (name === 'TokenExpiredError') {
+        return res.status(401).json({ message: 'Unauthorized.' })
+    } else if (name === 'JsonWebTokenError') {
+        return res.status(400).json({ message: 'Malformed token.' })
     } else {
         console.log(name)
         console.log(message)

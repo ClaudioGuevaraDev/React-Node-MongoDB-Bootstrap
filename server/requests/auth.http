@@ -17,3 +17,6 @@ Content-Type: application/json
     "email": "chichadioss23@gmail.com",
     "password": "123"
 }
+###
+POST {{api}}/validate-token
+Authorization: bearar eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzhjNzViZGYwYmMxYWM2YTBmNjIxOCIsInVzZXJuYW1lIjoiQ2hpY2hhRGlvcyIsInJvbGUiOiJVc2VyIiwiaWF0IjoxNjQwNjExMzg5LCJleHAiOjE2NDA2MTE0MDl9.3_mSPNR_77MnJqRHi_HQQ47PkKFv89dsGVPyqjoB1FE

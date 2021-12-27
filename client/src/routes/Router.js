@@ -10,16 +10,36 @@ import Login from '../pages/auth/Login/Login'
 import Home from '../pages/home/Home'
 import Register from '../pages/auth/Register/Register'
 
-import Navbar from '../components/Navbar/Navbar'
+import toast from 'react-hot-toast'
+
+import * as authService from '../services/authService'
 
 const Router = () => {
     const [loading, setLoading] = useState(true)
     const { dispatch } = useContext(GlobalContext)
 
+    const verifySession = async (tokenParse) => {
+        try {
+            await authService.validateToken(tokenParse)
+        } catch (error) {
+            toast.error('Sesión terminada. Vuelva a iniciar sesión.', {
+                position: 'top-center',
+                duration: 5000
+            })
+            dispatch({
+                type: LOGGED_USER,
+                payload: false
+            })
+            window.localStorage.removeItem('token')
+        }
+    }
+
     useEffect(() => {
+        setLoading(true)
         const tokenJSON = window.localStorage.getItem('token')
         const tokenParse = JSON.parse(tokenJSON)
         if (tokenParse) {
+            verifySession(tokenParse)
             dispatch({
                 type: LOGGED_USER,
                 payload: true

@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react'
 import { Modal } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 import { GlobalContext } from '../../context/GlobalState' 
 import { LOGGED_USER } from '../../context/AppConstants'
@@ -35,9 +36,13 @@ const Navbar = () => {
                    <span className='navbar-toggler-icon'></span>
                </button>
                <div className="collapse navbar-collapse" id='nav-menu'>
-                    <ul className="navbar-nav ms-auto">
+                    <ul className="navbar-nav ms-auto d-flex align-items-center">
+                        <li className='nav-item'>
+                            <Link className='nav-link' to="/home">Películas</Link>
+                        </li>
+                        <div className='mx-3'></div>
                         <li className="nav-item">
-                            <a className="btn btn-danger" onClick={handleOpenModal}>CERRAR SESIÓN</a>
+                            <a className="btn btn-danger btn-sm" onClick={handleOpenModal}>CERRAR SESIÓN</a>
                         </li>
                     </ul>
                </div>

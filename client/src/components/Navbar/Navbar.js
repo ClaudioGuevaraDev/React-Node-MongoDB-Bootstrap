@@ -1,5 +1,4 @@
 import { useState, useContext } from 'react'
-import { BiLogOut } from 'react-icons/bi'
 import { Modal } from 'react-bootstrap'
 
 import { GlobalContext } from '../../context/GlobalState' 

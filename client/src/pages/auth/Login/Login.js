@@ -12,6 +12,7 @@ import * as authService from '../../../services/authService'
 
 const Login = () => {
     const [user, setUser] = useState({ email: '', password: '' })
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const { dispatch } = useContext(GlobalContext)
 
@@ -25,6 +26,7 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setLoading(true)
         try {
             const res = await authService.signIn(user)
             dispatch({
@@ -40,6 +42,7 @@ const Login = () => {
             })
             handleCancel()
         }
+        setLoading(false)
     }
 
     const handleCancel = () => {
@@ -65,7 +68,14 @@ const Login = () => {
                                     <p className='text-white text-center fw-bold my-4'>¿No tienes una cuenta registrada?</p>
                                 </Link>
 
-                                <button type="submit" className="btn btn-primary w-100">Ingresar</button>
+                                {loading ? (
+                                    <button className='btn btn-primary w-100' disabled>
+                                        <span className='spinner-border spinner-border-sm' role="status" aria-hidden="true"></span>
+                                        <span className='visually-hidden'>Cargando...</span>
+                                    </button>
+                                ) : (
+                                    <button type="submit" className="btn btn-primary w-100">Ingresar</button>
+                                )}
                             </form>
                         </div>
                     </div>

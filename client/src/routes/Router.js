@@ -10,6 +10,8 @@ import Login from '../pages/auth/Login/Login'
 import Home from '../pages/home/Home'
 import Register from '../pages/auth/Register/Register'
 
+import Navbar from '../components/Navbar/Navbar'
+
 const Router = () => {
     const [loading, setLoading] = useState(true)
     const { dispatch } = useContext(GlobalContext)

@@ -12,8 +12,7 @@ export const signUp = async ({ username, email, password }) => {
     return data
 }
 
-export const validateToken = async (tokenParse) => {
-    const { token } = tokenParse
+export const validateToken = async (token) => {
     
     return await axios.post(`${baseUrl}/validate-token`, { headers: { Authorization: `Bearer ${token}` } })
 }

@@ -13,7 +13,7 @@ const getTokenFrom = (req) => {
 
 const handleToken = (req, res, next) => {
     const token = getTokenFrom(req)
-
+    
     if (!token) return res.status(401).json({ message: 'Unauthorized' })
 
     jwt.verify(token, config.SECRET)

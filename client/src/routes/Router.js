@@ -1,3 +1,5 @@
+import jwt_decode from 'jwt-decode'
+
 import { useState, useContext, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
@@ -21,6 +23,15 @@ const Router = () => {
     const verifySession = async (tokenParse) => {
         try {
             await authService.validateToken(tokenParse)
+            const { username, role } = jwt_decode(tokenParse)
+            dispatch({
+                type: LOGGED_USER,
+                payload: {
+                    logged: true,
+                    username: username,
+                    role: role
+                }
+            })
         } catch (error) {
             toast.error('Sesión terminada. Vuelva a iniciar sesión.', {
                 position: 'top-center',
@@ -28,7 +39,9 @@ const Router = () => {
             })
             dispatch({
                 type: LOGGED_USER,
-                payload: false
+                payload: {
+                    logged: false
+                }
             })
             window.localStorage.removeItem('token')
         }
@@ -38,16 +51,15 @@ const Router = () => {
         setLoading(true)
         const tokenJSON = window.localStorage.getItem('token')
         const tokenParse = JSON.parse(tokenJSON)
+
         if (tokenParse) {
             verifySession(tokenParse)
-            dispatch({
-                type: LOGGED_USER,
-                payload: true
-            })
         } else {
             dispatch({
                 type: LOGGED_USER,
-                payload: false
+                payload: {
+                    logged: false
+                }
             })
         }
         setLoading(false)

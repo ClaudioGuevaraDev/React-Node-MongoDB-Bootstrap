@@ -1,5 +1,4 @@
 import { useState, useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { BiLogOut } from 'react-icons/bi'
 import { Modal } from 'react-bootstrap'
 
@@ -9,9 +8,9 @@ import { LOGGED_USER } from '../../context/AppConstants'
 const Navbar = () => {
     const [loading, setLoading] = useState(false)
     const [showModal, setShowModal] = useState(false)
-    const navigate = useNavigate()
 
-    const { dispatch } = useContext(GlobalContext)
+    const { state, dispatch } = useContext(GlobalContext)
+    const { username, role } = state
 
     const handleOpenModal = () => setShowModal(true)
     const handleCloseModal = () => setShowModal(false)
@@ -21,9 +20,10 @@ const Navbar = () => {
         window.localStorage.removeItem('token')
         dispatch({
             type: LOGGED_USER,
-            payload: false
+            payload: {
+                logged: false
+            }
         })
-        navigate('/')
         setLoading(false)
         handleCloseModal()
     }
@@ -31,11 +31,14 @@ const Navbar = () => {
     return (
        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
            <div className="container">
-               <h3 className="h4"><span className="fw-bold">Bienvenido: </span></h3>
-               <div className="collapse navbar-collapse">
+               <h3 className="h5"><span className="fw-bold">{username}</span></h3>
+               <button type='button' className='navbar-toggler' data-bs-toggle="collapse" data-bs-target="#nav-menu" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                   <span className='navbar-toggler-icon'></span>
+               </button>
+               <div className="collapse navbar-collapse" id='nav-menu'>
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item">
-                            <a className="btn btn-danger fw-bold" onClick={handleOpenModal}>CERRAR SESIÓN</a>
+                            <a className="btn btn-danger" onClick={handleOpenModal}>CERRAR SESIÓN</a>
                         </li>
                     </ul>
                </div>

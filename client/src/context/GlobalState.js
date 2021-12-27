@@ -3,7 +3,9 @@ import { createContext, useReducer } from 'react'
 import AppReducer from './AppReducer'
 
 const initialState = {
-    logged: false
+    logged: false,
+    username: '',
+    role: ''
 }
 
 export const GlobalContext = createContext()

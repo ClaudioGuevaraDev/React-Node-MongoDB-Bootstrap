@@ -1,6 +1,7 @@
 import './login.css'
 
 import toast from 'react-hot-toast'
+import jwt_decode from 'jwt-decode'
 
 import { useState, useEffect, useContext } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
@@ -28,12 +29,18 @@ const Login = () => {
         e.preventDefault()
         setLoading(true)
         try {
-            const res = await authService.signIn(user)
+            const { token } = await authService.signIn(user)
+            const decodedToken = jwt_decode(token)
+            const { username, role } = decodedToken
             dispatch({
                 type: LOGGED_USER,
-                payload: true
+                payload: {
+                    logged: true,
+                    username: username,
+                    role: role
+                }
             })
-            window.localStorage.setItem('token', JSON.stringify(res))
+            window.localStorage.setItem('token', JSON.stringify(token))
             navigate('/home')
         } catch (error) {
             toast.error('Error al iniciar sesión.', {

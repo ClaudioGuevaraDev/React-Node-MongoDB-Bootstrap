@@ -48,7 +48,7 @@ export const signIn = async (req, res) => {
     }
 
     const token = jwt.sign(userToken, config.SECRET, {
-        expiresIn: 60
+        expiresIn: 86400 // 24 Horas
     })
 
     res.json({token})

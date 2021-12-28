@@ -19,5 +19,9 @@ router.put('/upload-image/:id', [
 router.get('/', [
     middlewares.handleToken
 ], moviesCtrl.getAllMovies)
+router.delete('/:id', [
+    middlewares.handleToken,
+    middlewares.isAdmin,
+], moviesCtrl.deleteMovie)
 
 export default router

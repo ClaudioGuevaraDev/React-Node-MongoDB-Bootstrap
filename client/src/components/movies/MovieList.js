@@ -1,3 +1,5 @@
+import toast from 'react-hot-toast'
+
 import { useState, useEffect, useContext } from 'react'
 import { RiAddCircleFill } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
@@ -8,7 +10,10 @@ import * as movieService from '../../services/movieService'
 
 const MovieList = () => {
     const [movies, setMovies] = useState([])
-    const { role } = useContext(GlobalContext)
+    const [refresh, setRefresh] = useState(true)
+    const { state } = useContext(GlobalContext)
+
+    const { role } = state
 
     const getMovies = async () => {
         const tokenJSON = window.localStorage.getItem('token')
@@ -19,7 +24,21 @@ const MovieList = () => {
 
     useEffect(() => {
         getMovies()
-    }, [])
+    }, [refresh])
+
+    const handleDeleteMovie = async (id) => {
+        try {
+            const tokenJSON = window.localStorage.getItem('token')
+            const tokenParse = JSON.parse(tokenJSON)
+            await movieService.deleteMovie(id, tokenParse)
+            setRefresh(!refresh)
+        } catch (error) {
+            toast.error('Error al eliminar la película.', {
+                position: 'top-center',
+                duration: 5000
+            })
+        }
+    }
 
     return (
         <div className="container p-4">
@@ -48,8 +67,12 @@ const MovieList = () => {
                                     {movie.description}
                                 </p>
                                 <div className="d-flex justify-content-around">
-                                    <button className="btn btn-outline-warning fw-bold btn-sm">EDITAR</button>
-                                    <button className="btn btn-outline-danger fw-bold btn-sm">ELIMINAR</button>
+                                    {role === "Admin" && (
+                                        <>
+                                        <button className="btn btn-outline-warning fw-bold btn-sm">EDITAR</button>
+                                        <button className="btn btn-outline-danger fw-bold btn-sm" onClick={() => handleDeleteMovie(movie._id)}>ELIMINAR</button>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>

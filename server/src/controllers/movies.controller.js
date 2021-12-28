@@ -1,3 +1,6 @@
+import fs from 'fs'
+import path from 'path'
+
 import Movie from '../models/Movie'
 
 export const createMovie = async (req, res) => {
@@ -26,4 +29,13 @@ export const getAllMovies = async (req, res) => {
     const movies = await Movie.find({})
 
     res.json(movies)
+}
+
+export const deleteMovie = async (req, res) => {
+    const deletedMovie = await Movie.findByIdAndDelete(req.params.id)
+
+    const imageURL = path.join(__dirname, `../images/${deletedMovie.image}`)
+    fs.unlinkSync(imageURL)
+
+    res.json(deletedMovie)
 }

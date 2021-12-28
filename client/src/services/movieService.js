@@ -23,3 +23,11 @@ export const getAllMovies = async (token) => {
     const { data } = await axios.get(baseURL, { headers: { Authorization: `Bearer ${token}` } })
     return data
 }
+
+export const deleteMovie = async (id, token) => {
+    return await axios.delete(`${baseURL}/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}

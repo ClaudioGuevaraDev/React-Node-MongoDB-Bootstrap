@@ -9,22 +9,22 @@ Existen dos tipos de usuarios, los cuales son User y Admin. Las funcionalidades 
 
 La aplicación cuenta con rutas protegidas, además de poseer un sistema de autenticacion y autorización mediado por tokens (jsonwebtoken).
 
-##### Tecnologías utilizadas
+#### Tecnologías utilizadas
 
 - **Backend:** Node.js
 - **Frontend:** React
 - **Base de Datos:** MongoDB
 - **Framework CSS:** Bootstrap
 
-##### Requerimientos
+#### Requerimientos
 
 - Tener Node.js instalado.
 - Tener MongoDB instalado.
 
-##### Instalación
+#### Instalación
 
 - Tanto para la carpeta client y server hacer *npm install*
 
-##### Ejecución
+#### Ejecución
 
 - Tanto para la carpeta client y server hacer *npm start*

@@ -31,3 +31,29 @@ export const deleteMovie = async (id, token) => {
         }
     })
 }
+
+export const getOneMovie = async (id, token) => {
+    const { data } = await axios.get(`${baseURL}/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    return data
+}
+
+export const updateMovie = async (id, { title, description }, token) => {
+    const { data } = await axios.put(`${baseURL}/${id}`, { title, description }, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    return data
+}
+
+export const updateImageMovie = async (id, formData, token) => {
+    const { data } = await axios.put(`${baseURL}/update-image/${id}`, formData, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}

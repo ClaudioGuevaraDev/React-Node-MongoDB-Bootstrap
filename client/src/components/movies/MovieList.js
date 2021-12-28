@@ -69,7 +69,7 @@ const MovieList = () => {
                                 <div className="d-flex justify-content-around">
                                     {role === "Admin" && (
                                         <>
-                                        <button className="btn btn-outline-warning fw-bold btn-sm">EDITAR</button>
+                                        <Link to={`/update-movie/${movie._id}`} className="btn btn-outline-warning fw-bold btn-sm">EDITAR</Link>
                                         <button className="btn btn-outline-danger fw-bold btn-sm" onClick={() => handleDeleteMovie(movie._id)}>ELIMINAR</button>
                                         </>
                                     )}

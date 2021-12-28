@@ -18,14 +18,12 @@ export const createMovie = async (req, res) => {
 }
 
 export const uploadImageMovie = async (req, res) => {
-    
     const updatedMovie = await Movie.findByIdAndUpdate(req.params.id, { image: req.file.filename }, { new: true })
 
     res.json(updatedMovie)
 }
 
 export const getAllMovies = async (req, res) => {
-    
     const movies = await Movie.find({})
 
     res.json(movies)
@@ -34,8 +32,34 @@ export const getAllMovies = async (req, res) => {
 export const deleteMovie = async (req, res) => {
     const deletedMovie = await Movie.findByIdAndDelete(req.params.id)
 
+    if (deletedMovie) return res.status(404).json({ message: 'Movie not found.' })
+
     const imageURL = path.join(__dirname, `../images/${deletedMovie.image}`)
     fs.unlinkSync(imageURL)
 
     res.json(deletedMovie)
+}
+
+export const getOneMovie = async (req, res) => {
+    const movie = await Movie.findById(req.params.id)
+    if (!movie) return res.status(404).json({ message: 'Movie not found.' })
+    res.json(movie)
+}
+
+export const updateMovie = async (req, res) => {
+    const updatedMovie = await Movie.findByIdAndUpdate(req.params.id, req.body, {
+        new: true
+    })
+    if (!updatedMovie) return res.status(404).json({ message: 'Movie not found.' })
+    res.json(updatedMovie)
+}
+
+export const updateImageMovie = async (req, res) => {
+    const movie = await Movie.findById(req.params.id)
+    const imageURL = path.join(__dirname, `../images/${movie.image}`)
+    fs.unlinkSync(imageURL)
+
+    const updatedMovie = await Movie.findByIdAndUpdate(req.params.id, { image: req.file.filename }, { new: true })
+
+    res.json(updatedMovie)
 }

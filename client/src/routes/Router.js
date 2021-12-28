@@ -12,6 +12,7 @@ import Login from '../pages/auth/Login/Login'
 import Home from '../pages/home/Home'
 import Register from '../pages/auth/Register/Register'
 import MovieForm from '../components/movies/MovieForm'
+import MovieUpdateForm from '../components/movies/MovieUpdateForm'
 
 import toast from 'react-hot-toast'
 
@@ -77,6 +78,7 @@ const Router = () => {
                 <Route element={<ProtectedRoutes/>}>
                     <Route path='/home' element={<Home/>}/>
                     <Route path='/add-movie' element={<MovieForm/>}/>
+                    <Route path='/update-movie/:id' element={<MovieUpdateForm/>}/>
                 </Route>
             </Routes>
         )}

@@ -9,13 +9,15 @@ const router = Router()
 
 router.post('/', [
     middlewares.handleToken,
+    middlewares.isAdmin,
 ], moviesCtrl.createMovie)
 router.put('/upload-image/:id', [
     middlewares.handleToken,
+    middlewares.isAdmin,
     middlewares.fileUpload
 ], moviesCtrl.uploadImageMovie)
 router.get('/', [
-    middlewares.handleToken,
+    middlewares.handleToken
 ], moviesCtrl.getAllMovies)
 
 export default router

@@ -23,6 +23,10 @@ const handleToken = (req, res, next) => {
 
     jwt.verify(token, config.SECRET)
 
+    const { role } = jwt.decode(token, config.SECRET)
+    
+    req.role = role
+
     next()
 }
 

@@ -37,9 +37,11 @@ const Navbar = () => {
                </button>
                <div className="collapse navbar-collapse" id='nav-menu'>
                     <ul className="navbar-nav ms-auto d-flex align-items-center">
-                        <li className='nav-item'>
-                            <Link className='nav-link' to="/home">Películas</Link>
-                        </li>
+                        {role === "Admin" && (
+                            <li className='nav-item'>
+                                <Link className='nav-link' to="/home">Películas</Link>
+                            </li>
+                        )}
                         <div className='mx-3'></div>
                         <li className="nav-item">
                             <a className="btn btn-danger btn-sm" onClick={handleOpenModal}>CERRAR SESIÓN</a>

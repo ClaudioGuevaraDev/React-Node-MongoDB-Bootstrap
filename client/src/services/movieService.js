@@ -10,3 +10,8 @@ export const createMovie = async ({ title, description }) => {
 export const uploadImageMovie = async (id, formData) => {
     return await axios.put(`${baseURL}/upload-image/${id}`, formData)
 }
+
+export const getAllMovies = async () => {
+    const { data } = await axios.get(baseURL)
+    return data
+}

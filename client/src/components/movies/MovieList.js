@@ -8,7 +8,9 @@ const MovieList = () => {
     const [movies, setMovies] = useState([])
 
     const getMovies = async () => {
-        const data = await movieService.getAllMovies()
+        const tokenJSON = window.localStorage.getItem('token')
+        const tokenParse = JSON.parse(tokenJSON)
+        const data = await movieService.getAllMovies(tokenParse)
         setMovies(data)
     }
 

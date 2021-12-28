@@ -29,16 +29,20 @@ const MovieForm = () => {
 
         const formData = new FormData()
         formData.append('image', movie.file)
+        
+        const tokenJSON = window.localStorage.getItem('token')
+        const tokenParse = JSON.parse(tokenJSON)
+
         setLoading(true)
         try {
             const res = await movieService.createMovie({
                 title: movie.title,
                 description: movie.description
-            })
+            }, tokenParse)
             const { _id } = res
             if (res) {
                 try {
-                    await movieService.uploadImageMovie(_id, formData)
+                    await movieService.uploadImageMovie(_id, formData, tokenParse)
                     toast.success('Película creada con éxito.', {
                         position: 'top-center',
                         duration: 5000

@@ -7,8 +7,15 @@ const { Router } = express
 
 const router = Router()
 
-router.post('/', moviesCtrl.createMovie)
-router.put('/upload-image/:id', [middlewares.fileUpload], moviesCtrl.uploadImageMovie)
-router.get('/', moviesCtrl.getAllMovies)
+router.post('/', [
+    middlewares.handleToken,
+], moviesCtrl.createMovie)
+router.put('/upload-image/:id', [
+    middlewares.handleToken,
+    middlewares.fileUpload
+], moviesCtrl.uploadImageMovie)
+router.get('/', [
+    middlewares.handleToken,
+], moviesCtrl.getAllMovies)
 
 export default router

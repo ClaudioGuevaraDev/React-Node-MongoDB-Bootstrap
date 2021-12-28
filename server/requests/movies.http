@@ -5,7 +5,7 @@ POST {{api}}
 Content-Type: application/json
 
 {
-   "title": "asd",
+   "title": "Spiderman",
    "description": "ads" 
 }
 ###

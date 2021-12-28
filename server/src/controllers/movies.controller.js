@@ -1,7 +1,12 @@
 import Movie from '../models/Movie'
 
 export const createMovie = async (req, res) => {
-    console.log(req.body)
+    const { title, description } = req.body
+
+    if (title.length > 25) return res.status(400).json({ message: 'El título de la película es muy largo.' })
+
+    if (description.length > 160) return res.status(400).json({ message: 'La descripción de la película es muy largo.' })
+
     const newMovie = new Movie(req.body)
 
     const savedMovie = await newMovie.save()    

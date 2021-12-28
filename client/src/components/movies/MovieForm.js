@@ -1,3 +1,5 @@
+import toast from 'react-hot-toast'
+
 import { useState } from 'react'
 
 import Navbar from "../Navbar/Navbar"
@@ -10,13 +12,24 @@ const MovieForm = () => {
         description: '',
         file: null
     })
+    const [loading, setLoading] = useState(false)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         
+        const { type } = movie.file
+        if (type !== "image/jpeg" && type !== "image/jpg" && type !== "image/png") {
+            toast.error('Solo se permiten imágenes png, jpg o jpeg.', {
+                position: 'top-center',
+                duration: 5000
+            })
+            handleCancel()
+            return
+        }
+
         const formData = new FormData()
         formData.append('image', movie.file)
-
+        setLoading(true)
         try {
             const res = await movieService.createMovie({
                 title: movie.title,
@@ -26,15 +39,34 @@ const MovieForm = () => {
             if (res) {
                 try {
                     await movieService.uploadImageMovie(_id, formData)
+                    toast.success('Película creada con éxito.', {
+                        position: 'top-center',
+                        duration: 5000
+                    })
                 } catch (error) {
-                    console.log(error)
+                    toast.error('Error al cargar la imagen.', {
+                        position: 'top-center',
+                        duration: 5000
+                    })
                 }
             }
         } catch (error) {   
-            console.log(error)
+            const { data } = error.response
+            const { message } = data
+            if (message === 'Already exists.') {
+                toast.error('La película ya existe.', {
+                    position: 'top-center',
+                    duration: 5000
+                })
+            } else {
+                toast.error(message, {
+                    position: 'top-center',
+                    duration: 5000
+                })
+            }
         }
-
         handleCancel()
+        setLoading(false)
     }
 
     const handleCancel = () => {
@@ -68,7 +100,14 @@ const MovieForm = () => {
                                         <input id='file-input' type="file" className="form-control" onChange={({target}) => setMovie({...movie, file: target.files[0]})} required/>
                                     </div>
                                     <div className="hstack gap-3">
-                                        <button className="btn btn-primary w-50" type='submit'>Crear</button>
+                                        {loading ? (
+                                            <button className='btn btn-primary w-100' disabled>
+                                                <span className='spinner-border spinner-border-sm' role="status" aria-hidden="true"></span>
+                                                <span className='visually-hidden'>Cargando...</span>
+                                            </button>
+                                        ) : (
+                                            <button className="btn btn-primary w-50" type='submit'>Crear</button>
+                                        )}
                                         <button type='button' className="btn btn-danger w-50" onClick={handleCancel}>Cancelar</button>
                                     </div>
                                 </form>

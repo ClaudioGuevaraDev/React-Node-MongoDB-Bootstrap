@@ -1,5 +1,7 @@
 ## React-Node-MongoDB-Bootstrap
 
+[Link para ver la demo de la aplicación](https://drive.google.com/file/d/1J5CqQTfLhbhgxvCwnqSAB0CVlLHxz74i/view?usp=sharing)
+
 Aplicación para la administración de películas, las cuales poseen un título, una descripción y una imagen. La aplicación cuenta con un sistema de login y registro.
 
 Existen dos tipos de usuarios, los cuales son User y Admin. Las funcionalidades para cada uno son:

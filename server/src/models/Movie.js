@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const { Schema, model } = mongoose
 
 const movieSchema = new Schema({
-    tile: {
+    title: {
         type: String,
         required: true,
         unique: true,
@@ -13,13 +13,11 @@ const movieSchema = new Schema({
     description: {
         type: String,
         required: true,
-        unique: true,
         trim: true,
         maxlength: 160
     },
-    imageURL: {
-        type: String,
-        required: true
+    image: {
+        type: String
     }
 }, {
     timestamps: true,

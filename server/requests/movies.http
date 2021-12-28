@@ -1,0 +1,12 @@
+@api = http://localhost:4000/api/movies
+
+###
+POST {{api}}
+Content-Type: application/json
+
+{
+   "title": "asd",
+   "description": "ads" 
+}
+###
+GET {{api}}

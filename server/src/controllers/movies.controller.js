@@ -32,7 +32,7 @@ export const getAllMovies = async (req, res) => {
 export const deleteMovie = async (req, res) => {
     const deletedMovie = await Movie.findByIdAndDelete(req.params.id)
 
-    if (deletedMovie) return res.status(404).json({ message: 'Movie not found.' })
+    if (!deletedMovie) return res.status(404).json({ message: 'Movie not found.' })
 
     const imageURL = path.join(__dirname, `../images/${deletedMovie.image}`)
     fs.unlinkSync(imageURL)

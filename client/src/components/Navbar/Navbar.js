@@ -31,7 +31,7 @@ const Navbar = () => {
     return (
        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
            <div className="container">
-               <h3 className="h5"><span className="fw-bold">{username}</span></h3>
+               <h3 className="h5"><span className="fw-bold">{username} ({role})</span></h3>
                <button type='button' className='navbar-toggler' data-bs-toggle="collapse" data-bs-target="#nav-menu" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                    <span className='navbar-toggler-icon'></span>
                </button>

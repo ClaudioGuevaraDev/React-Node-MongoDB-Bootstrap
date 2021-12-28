@@ -33,6 +33,7 @@ const MovieList = () => {
             await movieService.deleteMovie(id, tokenParse)
             setRefresh(!refresh)
         } catch (error) {
+            console.log(error)
             toast.error('Error al eliminar la película.', {
                 position: 'top-center',
                 duration: 5000
@@ -60,7 +61,7 @@ const MovieList = () => {
                 {movies.map((movie) => (
                     <div className="col" key={movie._id}>
                         <div className="card" style={{minHeight:"420px"}}>
-                            <img src={`http://localhost:4000/${movie.image}`} className="img-fluid h-100 rounded-start" className="card-img-top img-fluid"/>
+                            <img src={`http://localhost:4000/${movie.image}`} className="img-fluid rounded-start" className="card-img-top img-fluid"/>
                             <div className="card-body d-flex flex-column justify-content-between">
                                 <h5 className="card-title fw-bold">{movie.title}</h5>
                                 <p className="card-text fst-italic">
